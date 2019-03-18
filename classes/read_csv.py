@@ -11,7 +11,7 @@ import numpy as np
 import csv
 import subprocess
 import cv2
-
+ 
 
 
 class read_csv:
@@ -73,8 +73,6 @@ class read_csv:
                             success, image = video_file.read()
                             cv2.imwrite(_file_name + "-%d.jpg" % count, image)
                             count += 1
-                        #self.getImages(self.dataset_path, destination, "1080", "200", "20")
-                        #os.rename(source, destination) #Moves file from training data to created folder
                         
         return
         
