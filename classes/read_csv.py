@@ -32,11 +32,11 @@ class read_csv:
         return
     
     #get frames
-    def getFrame(self,sec,video_file,_file_name):
+    def getFrame(self,sec,video_file,_file_name,folder_name):
         video_file.set(cv2.CAP_PROP_POS_MSEC,sec*1000)
         hasFrames,image = video_file.read()
         if hasFrames:
-            cv2.imwrite(_file_name+str(sec)+".jpg", image)     # save frame as JPG file
+            cv2.imwrite(_file_name+str(sec)+".png", image)     # save frame as JPG file
         return hasFrames
     
     #creating folders and sorting files
@@ -54,24 +54,32 @@ class read_csv:
                     
                     if row[0].split(',')[0].split('.')[0] == _file_name: #Compares the ID's from the dataset and CSV
                         folder_name = str(row[0].split(',')[1])
-                        os.makedirs(self.train_data + '/' + folder_name, exist_ok=True) #creates folder according to the breed name
+                        current_directory_to_save_images = os.path.join(os.getcwd(), folder_name)
+                        os.makedirs(current_directory_to_save_images, exist_ok=True) #creates folder according to the breed name
+                        
                         source = self.dataset_path + '/' +  file
                         video_file = cv2.VideoCapture(source)
-                        destination = self.train_data + '/' + folder_name
-                        os.chdir(destination)
+
                         frameRate = 5
                         sec = 0
                         
-                        success = self.getFrame(sec,video_file,_file_name)
+                        #success = self.getFrame(sec,video_file,_file_name)
                         
                         count = 0
                         success = 1
+                        
                         while success:
                             sec = sec + frameRate
+                            folders = ["Product", "Clapperboard", "Splash", "Waiting", "Washing", "Application1", "Application2", "Bath", "Results"]
                             sec = round(sec, 2)
-                            success = self.getFrame(sec,video_file,_file_name)
+                            #success = self.getFrame(sec,video_file,_file_name, folder_name)
                             success, image = video_file.read()
-                            cv2.imwrite(_file_name + "-%d.jpg" % count, image)
+                            print(os.path.join(os.getcwd(),folder_name).split('/')[-1])
+                            if os.path.join(os.getcwd(),folder_name).split('/')[-1] in folders:
+                                print(os.path.join(os.getcwd(),folder_name))
+                                cv2.imwrite(os.path.join(os.getcwd(),folder_name) + "/" + _file_name + "-%d.jpg" % count, image)
+                            #
+                            #print(os.path.join(os.getcwd(),folder_name) + "/" + _file_name + "-%d.jpg" % count)
                             count += 1
                         #self.getImages(self.dataset_path, destination, "1080", "200", "20")
                         #os.rename(source, destination) #Moves file from training data to created folder
@@ -95,12 +103,17 @@ def main():
     
     _file_name = 'Combined_shoot4Classes.csv'
     _path = '../'
+    _root = '/Users/Mxolisi/Documents/Lab Work/Folders_from_CSV_Scripts/dataset/'
     _dataset_path = '/Users/Mxolisi/Documents/Lab Work/Folders_from_CSV_Scripts/dataset/Day_01'
     _train_data = '../train'
     
-    _read_csv = read_csv(_file_name, _path, _dataset_path, _train_data)
+    os.chdir('/Users/Mxolisi/Documents/Lab Work/Folders_from_CSV_Scripts/train')
     
-    _read_csv.read_files()
+    
+    for subdir, dirs, files in os.walk(_root):
+        _read_csv = read_csv(_file_name, _path, subdir, _train_data)
+        _read_csv.read_files()
+        
     
 if __name__ == "__main__":
     main()
