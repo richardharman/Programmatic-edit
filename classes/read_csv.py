@@ -7,7 +7,6 @@ Created on Thu Mar 14 09:39:23 2019
 """
 
 import os
-import numpy as np
 import csv
 import subprocess
 import cv2
