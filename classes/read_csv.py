@@ -101,15 +101,14 @@ class read_csv:
 
 def main():
     
-    _file_name = 'Combined_shoot4Classes.csv'
+    _file_name = 'Combined_shoot4Classes.csv' #Name of the CSV file containing the info needed to classify images.
     _path = '../'
-    _root = '/Users/Mxolisi/Documents/Lab Work/Folders_from_CSV_Scripts/dataset/'
-    _dataset_path = '/Users/Mxolisi/Documents/Lab Work/Folders_from_CSV_Scripts/dataset/Day_01'
+    _root = '/Users/Mxolisi/Documents/Lab Work/Folders_from_CSV_Scripts/dataset/' #location of the dataset on your local machine
     _train_data = '../train'
     
-    os.chdir('/Users/Mxolisi/Documents/Lab Work/Folders_from_CSV_Scripts/train')
+    os.chdir('/Users/Mxolisi/Documents/Lab Work/Folders_from_CSV_Scripts/train') #changing the Current directory so you can be able to use this working directory to save extracted images
     
-    
+    #loop through all directories under the datasets directory
     for subdir, dirs, files in os.walk(_root):
         _read_csv = read_csv(_file_name, _path, subdir, _train_data)
         _read_csv.read_files()
