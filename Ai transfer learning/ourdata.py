@@ -26,7 +26,7 @@ import os
 
 # Directory where you want to download and save the data-set.
 # Set this before you start calling any of the functions below.
-data_dir = "datasetimgs/"
+data_dir = "/Volumes/GTECH_4TB/dataset/train/"
 
 # Directory for the training-set after copying the files using copy_files().
 train_dir = os.path.join(data_dir, "train/")
