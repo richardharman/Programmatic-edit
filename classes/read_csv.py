@@ -29,6 +29,7 @@ class read_csv:
         self.train_data = train_data
         self.dataset_path = dataset_path
         self.files = os.listdir(self.dataset_path)
+        
         return
     
     #get frames
