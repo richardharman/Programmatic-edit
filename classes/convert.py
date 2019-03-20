@@ -140,7 +140,7 @@ if __name__ == "__main__":
     parser = argparse.ArgumentParser(description=desc)
 
     # Add arguments to the parser.
-    parser.add_argument("--indir", required=True,e
+    parser.add_argument("--indir", required=True,
                         help="input directory where videos are located")
 
     parser.add_argument("--outdir", required=True,

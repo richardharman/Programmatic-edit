@@ -58,8 +58,11 @@ class read_csv:
                         os.makedirs(current_directory_to_save_images, exist_ok=True) #creates folder according to the breed name
                         
                         source = self.dataset_path + '/' +  file
-                        video_file = cv2.VideoCapture(source)
-
+                        #video_file = cv2.VideoCapture(source)
+                        
+                        self.getImages_from_terminal(folder_name)
+                        
+                        '''
                         frameRate = 5
                         sec = 0
                         
@@ -83,15 +86,20 @@ class read_csv:
                             count += 1
                         #self.getImages(self.dataset_path, destination, "1080", "200", "20")
                         #os.rename(source, destination) #Moves file from training data to created folder
+                        '''
                         
         return
         
     #Gets images from  a signle video into folders according to their classes
     
+    def getImages_from_terminal(self, out_dir):
+         #subprocess.Popen(["python", "convert.py --indir /Users/Mxolisi/Documents/LabWork/Folders_from_CSV_Scripts/dataset/Day_01 --outdir {0} --crop 1080 --size 200 --rate 30".format(out_dir)])
+         subprocess.Popen(["python", os.path.join(os.getcwd(),"convert.py"), "--indir", '/Users/Mxolisi/Documents/LabWork/Folders_from_CSV_Scripts/dataset/Day_01','--outdir', out_dir, '--crop', '1080','--size','200','--size','30'])
+    
     def getImages(self, _indir, _outdir, _crop_dimension, _crop_size, _crop_rate):
         #os.path.join(os.getcwd(), 'convert.py')
         _commands = "../classes/convert.py --indir " + "'../dataset/Day_01'" + " --outdir '../dataset/train'" + " --crop " + _crop_dimension + " --size " + _crop_size + " --rate " + _crop_rate
-        os.chdir('/Users/Mxolisi/Documents/Lab Work/Folders_from_CSV_Scripts/classes/')
+        os.chdir('/Users/Mxolisi/Documents/LabWork/Folders_from_CSV_Scripts/classes/')
         #convert.video2images(_indir, _outdir, _crop_dimension, _crop_size, _crop_rate)
         subprocess.call(["python", _commands], shell=True)
         
@@ -103,11 +111,11 @@ def main():
     
     _file_name = 'Combined_shoot4Classes.csv'
     _path = '../'
-    _root = '/Users/Mxolisi/Documents/Lab Work/Folders_from_CSV_Scripts/dataset/'
-    _dataset_path = '/Users/Mxolisi/Documents/Lab Work/Folders_from_CSV_Scripts/dataset/Day_01'
+    _root = '/Users/Mxolisi/Documents/LabWork/Folders_from_CSV_Scripts/dataset/'
+    _dataset_path = '/Users/Mxolisi/Documents/LabWork/Folders_from_CSV_Scripts/dataset/Day_01'
     _train_data = '../train'
     
-    os.chdir('/Users/Mxolisi/Documents/Lab Work/Folders_from_CSV_Scripts/train')
+    os.chdir('/Users/Mxolisi/Documents/LabWork/Folders_from_CSV_Scripts/classes')
     
     
     for subdir, dirs, files in os.walk(_root):
