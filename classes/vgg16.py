@@ -150,7 +150,7 @@ class VGG16:
         # the given string.
         if startswith is not None:
             names = [name for name in names if name.startswith(startswith)]
-
+            
         return names
 
     def create_feed_dict(self, image):
@@ -181,7 +181,7 @@ class VGG16:
             feed_dict = {self.tensor_name_input_image: image,
                          self.tensor_name_dropout: [[dropout_fix]],
                          self.tensor_name_dropout1: [[dropout_fix]]}
-        else:
+        else:j
             # Create feed-dict for inputting data to TensorFlow.
             feed_dict = {self.tensor_name_input_image: image}
 
