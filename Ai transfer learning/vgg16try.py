@@ -11,10 +11,8 @@ from tensorflow.python.keras.applications.vgg16 import preprocess_input, decode_
 from tensorflow.python.keras.preprocessing.image import ImageDataGenerator
 from tensorflow.python.keras.optimizers import Adam, RMSprop
 
-
 def path_join(dirname, filenames):
     return [os.path.join(dirname, filename) for filename in filenames]
-
 
 def plot_images(images, cls_true, cls_pred=None, smooth=True):
     assert len(images) == len(cls_true)
@@ -211,7 +209,7 @@ batch_size = 20
 if True:
     save_to_dir = None
 else:
-    save_to_dir='augmented_images/'
+    save_to_dir='/Users/Mxolisi/Documents/LabWork/Folders_from_CSV_Scripts/dataset/Day_01/Splash/'
 
 
 generator_train = datagen_train.flow_from_directory(directory=train_dir,
@@ -256,7 +254,6 @@ cls_true = cls_train[0:9]
 # Plot the images and labels using the helper-function above.
 #plot_images(images=images, cls_true=cls_true, smooth=True)
 
-
 from sklearn.utils.class_weight import compute_class_weight
 
 
@@ -264,12 +261,9 @@ class_weight = compute_class_weight(class_weight='balanced',
                                     classes=np.unique(cls_train),
                                     y=cls_train)
 
-
 print(class_weight)
 
-
 print(class_names)
-
 
 def predict(image_path):
     # Load and resize the image using PIL.
@@ -295,27 +289,19 @@ def predict(image_path):
     for code, name, score in pred_decoded:
         print("{0:>6.2%} : {1}".format(score, name))
 
-
 #where you add you img
 #predict(image_path='images/parrot_cropped1.jpg')
 
-
 predict(image_path=image_paths_train[0])
-
 
 model.summary()
 
-
 transfer_layer = model.get_layer('block5_pool')
-
 
 print(transfer_layer.output)
 
-
 conv_model = Model(inputs=model.input,
                    outputs=transfer_layer.output)
-
-
 
 # Start a new Keras Sequential model.
 new_model = Sequential()
@@ -339,13 +325,9 @@ new_model.add(Dropout(0.5))
 # Add the final layer for the actual classification.
 new_model.add(Dense(num_classes, activation='softmax'))
 
-
-
 optimizer = Adam(lr=1e-5)
 
-
 loss = 'categorical_crossentropy'
-
 
 metrics = ['categorical_accuracy']
 
@@ -353,7 +335,6 @@ metrics = ['categorical_accuracy']
 def print_layer_trainable():
     for layer in conv_model.layers:
         print("{0}:\t{1}".format(layer.trainable, layer.name))
-
 
 print_layer_trainable()
 
@@ -383,7 +364,7 @@ history = new_model.fit_generator(generator=generator_train,
                                   validation_steps=steps_test)
 
 
-#plot_training_history(history)
+plot_training_history(history)
 
 
 result = new_model.evaluate_generator(generator_test, steps=steps_test)
@@ -391,9 +372,7 @@ result = new_model.evaluate_generator(generator_test, steps=steps_test)
 
 print("Test-set classification accuracy: {0:.2%}".format(result[1]))
 
-
 #example_errors()
-
 
 #conv_model.trainable = True
 
@@ -403,7 +382,6 @@ print("Test-set classification accuracy: {0:.2%}".format(result[1]))
 
     # Set the layer's bool.
     #layer.trainable = trainable
-
 
 #print_layer_trainable()
 
