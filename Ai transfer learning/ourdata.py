@@ -26,9 +26,18 @@ import os
 
 # Directory where you want to download and save the data-set.
 # Set this before you start calling any of the functions below.
-data_dir = "/Volumes/GTECH_4TB/dataset/train/"
+data_dir = "/Users/Mxolisi/Documents/LabWork/newPull/Programmatic-edit/images/train_images"
 
 # Directory for the training-set after copying the files using copy_files().
+
+
+
+
+if not os.path.exists(os.path.join('/Users/Mxolisi/Documents/LabWork/newPull/Programmatic-edit/images/train')):
+    os.mkdir('/Users/Mxolisi/Documents/LabWork/newPull/Programmatic-edit/images/train')
+if not os.path.exists(os.path.join('/Users/Mxolisi/Documents/LabWork/newPull/Programmatic-edit/images/test')):
+    os.mkdir('/Users/Mxolisi/Documents/LabWork/newPull/Programmatic-edit/images/test')
+
 train_dir = os.path.join(data_dir, "train/")
 
 # Directory for the test-set after copying the files using copy_files().

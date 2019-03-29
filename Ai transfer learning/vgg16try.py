@@ -1,4 +1,3 @@
-
 import matplotlib.pyplot as plt
 import PIL
 import tensorflow as tf
@@ -66,6 +65,7 @@ def plot_images(images, cls_true, cls_pred=None, smooth=True):
 
 # Import a function from sklearn to calculate the confusion-matrix.
 from sklearn.metrics import confusion_matrix
+
 
 
 def print_confusion_matrix(cls_pred):
@@ -372,40 +372,40 @@ result = new_model.evaluate_generator(generator_test, steps=steps_test)
 
 print("Test-set classification accuracy: {0:.2%}".format(result[1]))
 
-#example_errors()
+example_errors()
 
-#conv_model.trainable = True
+conv_model.trainable = True
 
-#for layer in conv_model.layers:
-    # Boolean whether this layer is trainable.
-   # trainable = ('block5' in layer.name or 'block4' in layer.name)
+for layer in conv_model.layers:
+    #Boolean whether this layer is trainable.
+    trainable = ('block5' in layer.name or 'block4' in layer.name)
 
-    # Set the layer's bool.
-    #layer.trainable = trainable
+    #Set the layer's bool.
+    layer.trainable = trainable
 
-#print_layer_trainable()
-
-
-#optimizer_fine = Adam(lr=1e-7)
+print_layer_trainable()
 
 
-#new_model.compile(optimizer=optimizer_fine, loss=loss, metrics=metrics)
+optimizer_fine = Adam(lr=1e-7)
 
 
-#history = new_model.fit_generator(generator=generator_train,
-             #                     epochs=epochs,
-             #                     steps_per_epoch=steps_per_epoch,
-             #                     class_weight=class_weight,
-             #                     validation_data=generator_test,
-              #                    validation_steps=steps_test)
+new_model.compile(optimizer=optimizer_fine, loss=loss, metrics=metrics)
 
 
-#plot_training_history(history)
+history = new_model.fit_generator(generator=generator_train,
+                                  epochs=epochs,
+                                  steps_per_epoch=steps_per_epoch,
+                                  class_weight=class_weight,
+                                  validation_data=generator_test,
+                                  validation_steps=steps_test)
 
 
-#result = new_model.evaluate_generator(generator_test, steps=steps_test)
+plot_training_history(history)
+
+
+result = new_model.evaluate_generator(generator_test, steps=steps_test)
 
 
 #print("Test-set classification accuracy: {0:.2%}".format(result[1]))
-model.save("/Users/dbn-imac-001b/Desktop/gitRepo/model_traind/firsttry.h5")
+model.save("/Users/Mxolisi/Documents/LabWork/newPull/Programmatic-edit/Ai transfer learning/firsttry.h5")
 example_errors()
